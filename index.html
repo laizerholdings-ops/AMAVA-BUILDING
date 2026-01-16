@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amava Building Cleaning & Concrete Floor's | 🇿🇦 Cape Town Construction</title>
+    <meta name="description" content="Amava Building Cleaning and Concrete Floor's (Pty) Ltd is a premier South African construction and specialized cleaning firm based in Cape Town. We specialize in high-impact building solutions, precision interior and exterior plastering, industrial-grade concrete flooring, and professional residential and commercial painting. Serving the Western Cape with a commitment to technical excellence, reliability, and on-time project delivery for residential, commercial, and industrial clients.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fffbeb',
+                            400: '#fbbf24',
+                            500: '#d97706', // Golden Amber
+                            600: '#b45309',
+                            700: '#92400e',
+                            900: '#451a03',
+                        },
+                        charcoal: {
+                            800: '#1a1a1a',
+                            900: '#111111',
+                            950: '#0a0a0a',
+                        },
+                        cream: {
+                            50: '#fdfcf0',
+                            100: '#f9f8e6',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        /* Theme Foundation - Charcoal (Default) & Cream Toggle */
+        html.dark body { background-color: #111111; color: #ffffff; } 
+        html:not(.dark) body { background-color: #fdfcf0; color: #1a1a1a; }
+
+        /* Animations */
+        @keyframes text-glow {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(217, 119, 6, 0.3)); }
+            50% { filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.6)); }
+        }
+        .animate-text-glow { animation: text-glow 4s ease-in-out infinite; }
+
+        @keyframes pulse-green {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .whatsapp-pulse { animation: pulse-green 2s infinite; background-color: #25D366; }
+
+        .text-shimmer {
+            background: linear-gradient(to right, #d97706 20%, #fbbf24 40%, #fbbf24 60%, #d97706 80%);
+            background-size: 200% auto;
+            color: #d97706;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShimmer 4s linear infinite;
+        }
+        @keyframes textShimmer { to { background-position: 200% center; } }
+
+        /* Artisan Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+        html.dark .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(217, 119, 6, 0.3);
+            transform: translateY(-5px);
+        }
+        html:not(.dark) .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(217, 119, 6, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Background Layer */
+        .video-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background-color: #111111;
+        }
+        .video-bg-container video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(17, 17, 17, 0.9), rgba(17, 17, 17, 0.75), rgba(17, 17, 17, 0.95));
+            z-index: 1;
+            transition: background 0.5s ease;
+        }
+        html:not(.dark) .video-overlay {
+            background: linear-gradient(to bottom, rgba(253, 252, 240, 0.98), rgba(253, 252, 240, 0.85), rgba(253, 252, 240, 0.98));
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        .active-faq .faq-content {
+            max-height: 1000px;
+            opacity: 1;
+            padding-bottom: 1.5rem;
+        }
+
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        html:not(.dark) #preloader { background: #fdfcf0; }
+        #preloader.loaded { opacity: 0; visibility: hidden; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        html.dark ::-webkit-scrollbar-track { background: #111111; }
+        html:not(.dark) ::-webkit-scrollbar-track { background: #fdfcf0; }
+        ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b45309; }
+
+        /* Staggered Delay Helpers */
+        .stagger-1 { transition-delay: 100ms; }
+        .stagger-2 { transition-delay: 200ms; }
+        .stagger-3 { transition-delay: 300ms; }
+
+        /* Logo Styling - Enlarged View */
+        .brand-logo {
+            height: 64px; /* Increased from 48px */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        @media (max-width: 640px) {
+            .brand-logo {
+                height: 48px; /* Slightly smaller on mobile to prevent overflow */
+            }
+        }
+        .group:hover .brand-logo {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden" id="home">
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="relative w-24 h-24">
+            <div class="absolute inset-0 border-4 border-amber-500/10 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-t-[#d97706] rounded-full animate-spin"></div>
+        </div>
+    </div>
+
+    <!-- Background Layer (Local Video) -->
+    <div class="video-bg-container">
+        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=2070">
+            <source src="background.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 py-4 transition-all duration-700 top-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center px-4 sm:px-6 py-4 rounded-2xl shadow-2xl border border-white/5 backdrop-blur-xl bg-white/90 dark:bg-charcoal-900/90">
+                <div class="flex items-center space-x-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    <!-- Logo Implementation - Enlarged via CSS -->
+                    <img src="logo.png" alt="Amava Building Logo" class="brand-logo" onerror="this.style.display='none'; document.getElementById('fallback-icon').style.display='flex';">
+                    <!-- Fallback Icon if logo.png doesn't exist -->
+                    <div id="fallback-icon" class="hidden w-12 h-12 bg-brand-500 rounded-lg items-center justify-center text-white font-black shadow-lg">AB</div>
+                    
+                    <div class="flex flex-col">
+                        <span class="font-black text-lg tracking-tighter uppercase leading-none text-charcoal-900 dark:text-white">AMAVA <span class="text-brand-500">BUILDING</span></span>
+                        <span class="text-[8px] font-bold tracking-[0.4em] uppercase opacity-70 text-charcoal-900 dark:text-white">Construction & Concrete</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="text-[10px] font-black uppercase tracking-widest hover:text-brand-500 transition-colors text-charcoal-900 dark:text-white">Home</a>
+                    <a href="#about" class="text-[10px] font-black uppercase tracking-widest hover:text-brand-500 transition-colors text-charcoal-900 dark:text-white">About</a>
+                    <a href="#services" class="text-[10px] font-black uppercase tracking-widest hover:text-brand-500 transition-colors text-charcoal-900 dark:text-white">Services</a>
+                    <a href="#testimonials" class="text-[10px] font-black uppercase tracking-widest hover:text-brand-500 transition-colors text-charcoal-900 dark:text-white">Clients</a>
+                    <a href="#faq" class="text-[10px] font-black uppercase tracking-widest hover:text-brand-500 transition-colors text-charcoal-900 dark:text-white">FAQ</a>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2.5 rounded-xl glass-card border-none hover:bg-brand-500/10 transition-all flex items-center justify-center min-w-[45px]">
+                        <i data-lucide="sun" class="hidden dark:block text-brand-500 w-5 h-5"></i>
+                        <i data-lucide="moon" class="block dark:hidden text-charcoal-800 w-5 h-5"></i>
+                    </button>
+
+                    <a href="#contact" class="px-6 py-3 bg-brand-500 text-white rounded-xl font-bold hover:bg-brand-600 transition-all shadow-lg uppercase text-[10px] tracking-widest">Free Quote</a>
+                </div>
+
+                <div class="lg:hidden flex items-center space-x-4">
+                    <button id="theme-toggle-mobile" class="p-2 rounded-xl glass-card border-none">
+                        <i data-lucide="sun" class="hidden dark:block text-brand-500"></i>
+                        <i data-lucide="moon" class="block dark:hidden text-charcoal-900"></i>
+                    </button>
+                    <button id="menu-toggle" class="text-charcoal-900 dark:text-white p-2">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden absolute top-24 left-4 right-4 bg-white dark:bg-charcoal-900 border border-white/10 rounded-2xl p-6 shadow-2xl lg:hidden">
+            <div class="flex flex-col space-y-6 text-center">
+                <a href="#home" class="mobile-link text-xs font-black uppercase tracking-widest text-charcoal-900 dark:text-white">Home</a>
+                <a href="#about" class="mobile-link text-xs font-black uppercase tracking-widest text-charcoal-900 dark:text-white">About</a>
+                <a href="#services" class="mobile-link text-xs font-black uppercase tracking-widest text-charcoal-900 dark:text-white">Services</a>
+                <a href="tel:0738663711" class="bg-brand-500 text-white py-4 rounded-xl font-black uppercase text-xs tracking-widest">Call Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center pt-24 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8 text-center lg:text-left reveal">
+                <div class="inline-flex items-center space-x-2 px-4 py-2 bg-brand-500/10 border border-brand-500/20 rounded-full">
+                    <span class="w-2 h-2 bg-brand-500 rounded-full animate-pulse"></span>
+                    <span class="text-brand-500 text-[10px] font-black uppercase tracking-[0.3em]">🇿🇦 Cape Town Construction & Cleaning</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter uppercase text-charcoal-900 dark:text-white">
+                    Premium <br />
+                    <span class="text-shimmer animate-text-glow">Building &</span> <br />
+                    Concrete.
+                </h1>
+                <p class="text-lg md:text-xl max-w-xl mx-auto lg:mx-0 font-medium leading-relaxed text-charcoal-800/70 dark:text-slate-300">
+                    Amava Building Cleaning and Concrete Floor's (Pty) Ltd delivers reliable workmanship, attention to detail, and projects completed on time and within budget.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-6">
+                    <a href="#contact" class="px-10 py-5 bg-brand-500 text-white font-black rounded-2xl shadow-2xl hover:scale-105 transition-all flex items-center justify-center uppercase tracking-widest text-xs">
+                        Request Quote <i data-lucide="send" class="ml-3 w-4 h-4"></i>
+                    </a>
+                    <a href="#services" class="px-10 py-5 glass-card font-black rounded-2xl border border-white/10 transition-all uppercase tracking-widest text-xs flex items-center justify-center hover:bg-white/5 text-charcoal-900 dark:text-white">
+                        View Services
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hidden lg:block relative reveal stagger-3">
+                <div class="relative z-10 rounded-[3.5rem] overflow-hidden shadow-2xl border border-white/5 transform rotate-2 hover:rotate-0 transition-all duration-1000 aspect-square group bg-amber-500/10 backdrop-blur-sm">
+                    <img src="https://images.unsplash.com/photo-1590069230002-70cc6947513c?q=80&w=1470&auto=format&fit=crop" alt="Modern Concrete Work" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[4000ms] opacity-80" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-transparent to-transparent opacity-60"></div>
+                </div>
+                <div class="absolute -top-10 -right-10 w-64 h-64 bg-brand-500/10 blur-[100px] rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expanded About Section -->
+    <section id="about" class="py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
+                <div class="reveal space-y-8">
+                    <div class="space-y-4">
+                        <h2 class="text-brand-500 font-black uppercase tracking-[0.4em] text-[11px]">Comprehensive Company Profile</h2>
+                        <h3 class="text-5xl font-black uppercase tracking-tighter text-charcoal-900 dark:text-white">Architects of <br /> Structural Integrity.</h3>
+                        <div class="w-24 h-2 bg-brand-500 rounded-full opacity-50"></div>
+                    </div>
+                    
+                    <div class="space-y-6 font-medium leading-relaxed text-sm md:text-base text-charcoal-800/80 dark:text-slate-300">
+                        <p>Amava Building Cleaning and Concrete Floor's (Pty) Ltd is a premier South African construction and specialized cleaning firm based in the heart of Cape Town. Our journey is defined by a deep-rooted commitment to transforming the architectural landscape of the Western Cape through precision, reliability, and innovation.</p>
+                        
+                        <p>We believe that every structure, whether residential, commercial, or industrial, deserves a foundation built on trust and technical excellence. Our team of highly skilled artisans and project managers specializes in navigating complex construction requirements—from expert interior and exterior plastering that provides a flawless canvas, to high-grade painting that brings architectural visions to life.</p>
+                        
+                        <p>What truly sets Amava apart is our advanced concrete flooring division. We leverage industry-leading techniques to deliver industrial-strength flooring solutions that combine aesthetic elegance with unmatched durability. From our home base in Bloekombos and Kraaifontein, we have extended our reach across Cape Town, becoming a trusted partner for clients who refuse to compromise on quality or timeline.</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            <div class="glass-card p-4 rounded-xl border-l-2 border-brand-500 reveal">
+                                <h5 class="font-bold text-xs uppercase mb-2 text-charcoal-900 dark:text-white">Our Vision</h5>
+                                <p class="text-xs opacity-70">To lead the South African built environment by delivering structural solutions that blend safety with artistic finish.</p>
+                            </div>
+                            <div class="glass-card p-4 rounded-xl border-l-2 border-brand-600 reveal stagger-1">
+                                <h5 class="font-bold text-xs uppercase mb-2 text-charcoal-900 dark:text-white">Our Commitment</h5>
+                                <p class="text-xs opacity-70">Transparent pricing, premium materials, and professional project handover, guaranteed on every site.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative reveal stagger-3">
+                    <div class="relative z-10 rounded-[3.5rem] overflow-hidden shadow-2xl border border-white/10 aspect-square group">
+                        <img src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&q=80&w=800" alt="Professional Plastering" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal-950 via-transparent to-transparent opacity-60"></div>
+                    </div>
+                    <div class="absolute -bottom-8 -left-8 glass-card p-6 rounded-2xl z-20">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-brand-500 rounded-full flex items-center justify-center text-white">
+                                <i data-lucide="award"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-black uppercase text-brand-500 tracking-widest">Compliance</p>
+                                <p class="text-sm font-bold dark:text-white">COIDA & Safety Verified</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 relative overflow-hidden bg-brand-900/10 dark:bg-brand-950/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-4 mb-24 reveal">
+                <h2 class="text-brand-500 font-black tracking-[0.4em] uppercase text-[11px]">Specialized Expertise</h2>
+                <h3 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-charcoal-900 dark:text-white">What We Deliver</h3>
+                <div class="w-24 h-2 bg-brand-500 mx-auto rounded-full mt-4 opacity-50"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col border-l-4 border-l-brand-400 reveal">
+                    <div class="w-14 h-14 bg-brand-500 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg">
+                        <i data-lucide="building"></i>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter text-charcoal-900 dark:text-white">Building Works</h4>
+                    <p class="text-sm font-medium opacity-70 leading-relaxed text-charcoal-800 dark:text-slate-200">Full turnkey construction services for residential homes, office spaces, and industrial structures in the Western Cape.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col border-l-4 border-l-brand-500 reveal stagger-1">
+                    <div class="w-14 h-14 bg-brand-500 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg">
+                        <i data-lucide="trowel"></i>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter text-charcoal-900 dark:text-white">Plastering & Painting</h4>
+                    <p class="text-sm font-medium opacity-70 leading-relaxed text-charcoal-800 dark:text-slate-200">Interior and exterior plastering combined with professional-grade painting for a flawless architectural finish.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col border-l-4 border-l-brand-600 reveal stagger-2">
+                    <div class="w-14 h-14 bg-brand-500 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg">
+                        <i data-lucide="layers"></i>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter text-charcoal-900 dark:text-white">Concrete Floors</h4>
+                    <p class="text-sm font-medium opacity-70 leading-relaxed text-charcoal-800 dark:text-slate-200">Advanced concrete flooring and finishing solutions. Durable, aesthetic, and built to withstand heavy industrial usage.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="glass-card p-10 rounded-[2.5rem] flex flex-col border-l-4 border-l-brand-400 reveal stagger-1">
+                    <div class="w-14 h-14 bg-brand-500 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg">
+                        <i data-lucide="sparkles"></i>
+                    </div>
+                    <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter text-charcoal-900 dark:text-white">Building Cleaning</h4>
+                    <p class="text-sm font-medium opacity-70 leading-relaxed text-charcoal-800 dark:text-slate-200">Professional cleaning services for commercial and residential properties, including post-construction site clearing.</p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="glass-card p-10 rounded-[2.5rem] lg:col-span-2 flex flex-col md:flex-row gap-8 border-l-4 border-l-brand-500 reveal stagger-2">
+                    <div class="md:w-1/2">
+                        <div class="w-14 h-14 bg-brand-500 rounded-2xl flex items-center justify-center mb-8 text-white shadow-lg">
+                            <i data-lucide="hammer"></i>
+                        </div>
+                        <h4 class="text-2xl font-black mb-4 uppercase tracking-tighter text-charcoal-900 dark:text-white">Maintenance</h4>
+                    </div>
+                    <div class="md:w-1/2 space-y-4 text-sm font-medium opacity-70 leading-relaxed text-charcoal-800 dark:text-slate-200">
+                        <p>Breathing new life into existing structures. We handle structural modifications, preventative maintenance, and modern upgrades for all property types.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-32 relative reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-brand-500 font-black tracking-[0.4em] uppercase text-[11px]">Client Success</h2>
+                <h3 class="text-4xl md:text-5xl font-black tracking-tighter uppercase text-charcoal-900 dark:text-white">Trusted in Cape Town</h3>
+                <div class="w-24 h-2 bg-brand-500 mx-auto rounded-full mt-4 opacity-50"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-[2rem] border-t-4 border-brand-400 reveal">
+                    <div class="flex text-brand-500 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-sm italic text-charcoal-800 dark:text-slate-200 mb-6 leading-relaxed">
+                        "Amava did an excellent job with plastering and painting my house. Very professional and affordable. I highly recommend them."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-500/10 rounded-full flex items-center justify-center text-brand-500 font-bold">TM</div>
+                        <div>
+                            <p class="font-bold text-sm dark:text-white">Thabo M.</p>
+                            <p class="text-[10px] uppercase font-bold text-slate-500">Kraaifontein</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-[2rem] border-t-4 border-brand-500 reveal stagger-1">
+                    <div class="flex text-brand-500 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-sm italic text-charcoal-800 dark:text-slate-200 mb-6 leading-relaxed">
+                        "They completed our concrete flooring on time and the quality was outstanding. Great service from start to finish."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-500/10 rounded-full flex items-center justify-center text-brand-500 font-bold">LP</div>
+                        <div>
+                            <p class="font-bold text-sm dark:text-white">Lerato P.</p>
+                            <p class="text-[10px] uppercase font-bold text-slate-500">Cape Town</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-[2rem] border-t-4 border-brand-600 reveal stagger-2">
+                    <div class="flex text-brand-500 mb-4">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-sm italic text-charcoal-800 dark:text-slate-200 mb-6 leading-relaxed">
+                        "The team is reliable, respectful, and skilled. My renovation project was handled professionally."
+                    </p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-brand-500/10 rounded-full flex items-center justify-center text-brand-500 font-bold">SD</div>
+                        <div>
+                            <p class="font-bold text-sm dark:text-white">Siyabonga D.</p>
+                            <p class="text-[10px] uppercase font-bold text-slate-500">Bloekombos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expanded FAQ Section -->
+    <section id="faq" class="py-32 relative bg-brand-500/5 reveal">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+            <h3 class="text-5xl font-black uppercase tracking-tighter mb-16 text-center text-charcoal-900 dark:text-white">Project FAQ.</h3>
+            <div class="space-y-4">
+                <!-- Q1 -->
+                <div class="glass-card rounded-2xl overflow-hidden faq-item">
+                    <button class="w-full flex justify-between items-center p-6 text-left hover:bg-brand-500/5 transition-colors faq-btn">
+                        <span class="font-black text-xs uppercase tracking-widest text-charcoal-900 dark:text-white">Do you work with both residential and commercial clients?</span>
+                        <i data-lucide="plus" class="text-brand-500 w-4 h-4 transition-transform icon-toggle"></i>
+                    </button>
+                    <div class="faq-content px-6 text-sm font-medium text-charcoal-800 dark:text-slate-200 border-t border-brand-500/10 pt-4">
+                        Yes, we offer comprehensive services to homes, businesses, and industrial properties across Cape Town and surrounding areas.
+                    </div>
+                </div>
+                <!-- Q2 -->
+                <div class="glass-card rounded-2xl overflow-hidden faq-item">
+                    <button class="w-full flex justify-between items-center p-6 text-left hover:bg-brand-500/5 transition-colors faq-btn">
+                        <span class="font-black text-xs uppercase tracking-widest text-charcoal-900 dark:text-white">Do you provide free quotations?</span>
+                        <i data-lucide="plus" class="text-brand-500 w-4 h-4 transition-transform icon-toggle"></i>
+                    </button>
+                    <div class="faq-content px-6 text-sm font-medium text-charcoal-800 dark:text-slate-200 border-t border-brand-500/10 pt-4">
+                        Absolutely. We provide detailed, no-obligation quotations for all construction, cleaning, and flooring inquiries.
+                    </div>
+                </div>
+                <!-- Q3 -->
+                <div class="glass-card rounded-2xl overflow-hidden faq-item">
+                    <button class="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition-colors faq-btn">
+                        <span class="font-black text-xs uppercase tracking-widest text-charcoal-900 dark:text-white">What specific areas in Cape Town do you serve?</span>
+                        <i data-lucide="plus" class="text-brand-500 w-4 h-4 transition-transform icon-toggle"></i>
+                    </button>
+                    <div class="faq-content px-6 text-sm font-medium text-charcoal-800 dark:text-slate-200 border-t border-brand-500/10 pt-4">
+                        Our primary service areas include Bloekombos, Kraaifontein, Durbanville, Bellville, and the greater Northern Suburbs, though we handle projects across the entire Western Cape.
+                    </div>
+                </div>
+                <!-- Q4 -->
+                <div class="glass-card rounded-2xl overflow-hidden faq-item">
+                    <button class="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition-colors faq-btn">
+                        <span class="font-black text-xs uppercase tracking-widest text-charcoal-900 dark:text-white">How do you handle project timelines?</span>
+                        <i data-lucide="plus" class="text-brand-500 w-4 h-4 transition-transform icon-toggle"></i>
+                    </button>
+                    <div class="faq-content px-6 text-sm font-medium text-charcoal-800 dark:text-slate-200 border-t border-brand-500/10 pt-4">
+                        Project timelines are determined during the quotation phase. We prioritize efficient management to ensure we meet every deadline without compromising structural integrity.
+                    </div>
+                </div>
+                <!-- Q5 -->
+                <div class="glass-card rounded-2xl overflow-hidden faq-item">
+                    <button class="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition-colors faq-btn">
+                        <span class="font-black text-xs uppercase tracking-widest text-charcoal-900 dark:text-white">Do you supply the materials for the projects?</span>
+                        <i data-lucide="plus" class="text-brand-500 w-4 h-4 transition-transform icon-toggle"></i>
+                    </button>
+                    <div class="faq-content px-6 text-sm font-medium text-charcoal-800 dark:text-slate-200 border-t border-brand-500/10 pt-4">
+                        Yes, we offer turnkey solutions where we source all high-quality materials. Alternatively, we are happy to work with materials provided by the client.
+                    </div>
+                </div>
+                <!-- Q6 -->
+                <div class="glass-card rounded-2xl overflow-hidden faq-item">
+                    <button class="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition-colors faq-btn">
+                        <span class="font-black text-xs uppercase tracking-widest text-charcoal-900 dark:text-white">Are you a legally registered South African company?</span>
+                        <i data-lucide="plus" class="text-brand-500 w-4 h-4 transition-transform icon-toggle"></i>
+                    </button>
+                    <div class="faq-content px-6 text-sm font-medium text-charcoal-800 dark:text-slate-200 border-t border-brand-500/10 pt-4">
+                        Yes, Amava Building Cleaning and Concrete Floor's is a registered (Pty) Ltd company. We operate with full compliance, including COIDA and safety standards.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 relative reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div class="space-y-12 text-center lg:text-left">
+                <h3 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.8] text-charcoal-900 dark:text-white">
+                    Let's <br />
+                    <span class="text-brand-500 text-shimmer animate-text-glow">Build.</span> <br />
+                    Together.
+                </h3>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center space-x-6 group cursor-pointer justify-center lg:justify-start" onclick="location.href='tel:0738663711'">
+                        <div class="w-16 h-16 glass-card rounded-2xl flex items-center justify-center text-brand-500 group-hover:bg-brand-500 group-hover:text-white transition-all shadow-xl">
+                            <i data-lucide="phone"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-[10px] font-black uppercase mb-1 text-slate-500">Contact Hotline</p>
+                            <p class="text-2xl font-black leading-none text-charcoal-900 dark:text-white">073 866 3711</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-6 group cursor-pointer justify-center lg:justify-start" onclick="location.href='mailto:nomavamboniswa05@gmail.com'">
+                        <div class="w-16 h-16 glass-card rounded-2xl flex items-center justify-center text-brand-500 group-hover:bg-brand-500 group-hover:text-white transition-all shadow-xl">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-[10px] font-black uppercase mb-1 text-slate-500">Project Inquiry</p>
+                            <p class="text-sm font-black leading-none text-charcoal-900 dark:text-white">nomavamboniswa05@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-8 sm:p-12 rounded-[2.5rem] shadow-2xl reveal stagger-3">
+                <form class="space-y-6" id="contactForm" action="https://formspree.io/f/mreeepbl" method="POST">
+                    <h4 class="text-3xl font-black mb-8 uppercase tracking-tighter text-charcoal-900 dark:text-white">Project Brief</h4>
+                    <input type="text" name="full_name" placeholder="Full Name" class="w-full glass-card bg-brand-500/5 border-none rounded-xl p-5 outline-none focus:ring-2 focus:ring-brand-500 text-charcoal-900 dark:text-white" required />
+                    <input type="tel" name="contact_number" placeholder="Contact Number" class="w-full glass-card bg-brand-500/5 border-none rounded-xl p-5 outline-none focus:ring-2 focus:ring-brand-500 text-charcoal-900 dark:text-white" required />
+                    <select name="service_required" class="w-full glass-card bg-brand-500/5 border-none rounded-xl p-5 outline-none focus:ring-2 focus:ring-brand-500 text-charcoal-900 dark:text-white">
+                        <option value="Building Construction" class="text-charcoal-800">Building Construction</option>
+                        <option value="Concrete Flooring" class="text-charcoal-800">Concrete Flooring</option>
+                        <option value="Renovations" class="text-charcoal-800">Renovations</option>
+                        <option value="Painting/Plastering" class="text-charcoal-800">Painting & Plastering</option>
+                        <option value="Cleaning Services" class="text-charcoal-800">Cleaning Services</option>
+                    </select>
+                    <textarea name="message" placeholder="Describe your project..." class="w-full glass-card bg-brand-500/5 border-none rounded-xl p-5 outline-none focus:ring-2 focus:ring-brand-500 text-charcoal-900 dark:text-white h-32"></textarea>
+                    <button type="submit" id="submitBtn" class="w-full bg-brand-500 text-white font-black py-6 rounded-2xl shadow-2xl hover:bg-brand-600 transition-all uppercase tracking-[0.3em] text-[10px]">Send Submission</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 bg-charcoal-950 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
+            <div class="flex items-center space-x-4 mb-8">
+                <!-- Footer Logo - Enlarged -->
+                <img src="logo.png" alt="Amava Building Logo" class="h-20 w-auto brightness-110" onerror="this.style.display='none';">
+                <h4 class="text-xl font-black tracking-tighter uppercase text-white">AMAVA BUILDING</h4>
+            </div>
+            <p class="text-[10px] font-bold tracking-widest text-amber-500/60 mb-4 uppercase">Reliable Construction • Concrete Solutions • Cape Town • South Africa</p>
+            <p class="text-xs font-medium opacity-50 text-white">© 2024 AMAVA BUILDING CLEANING AND CONCRETE FLOOR'S (PTY) LTD.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/27738663711" target="_blank" class="fixed bottom-8 right-8 z-[100] text-white w-16 h-16 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all whatsapp-pulse" id="floating-wa">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.72.937 3.659 1.43 5.623 1.43h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <script>
+        // Lucide Icon Init
+        lucide.createIcons();
+
+        // Theme Toggle Logic
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeBtnMob = document.getElementById('theme-toggle-mobile');
+
+        const toggleTheme = () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            lucide.createIcons();
+        };
+
+        themeBtn.onclick = toggleTheme;
+        themeBtnMob.onclick = toggleTheme;
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+        document.querySelectorAll('.mobile-link').forEach(l => l.onclick = () => mobileMenu.classList.add('hidden'));
+
+        // FAQ Accordion Logic
+        document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.onclick = () => {
+                const item = btn.parentElement;
+                const isOpen = item.classList.contains('active-faq');
+                
+                document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('active-faq'));
+
+                if (!isOpen) {
+                    item.classList.add('active-faq');
+                }
+                lucide.createIcons();
+            };
+        });
+
+        // Scroll Reveal Logic (Top Animation Engine)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active'); 
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Form Submission logic handled by Formspree via direct action attribute
+        // Preloader Exit
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('loaded');
+            }, 800);
+        };
+    </script>
+</body>
+</html>
